@@ -10,6 +10,11 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    library: {
+      name: 'xhrQ',
+      type: 'umd',
+    },
+    clean: true,
   },
   resolve: {
     alias: {
@@ -20,7 +25,6 @@ module.exports = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-          parallel: true,
           include: /\.min\.js$/
       }),
     ],
