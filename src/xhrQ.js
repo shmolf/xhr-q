@@ -11,19 +11,22 @@ export const TYPE_JSON = 'application/json';
 /** @typedef {import('./RequestData').PublicProperties} QRequest */
 /** @typedef {import('./RequestData').Options} qRequestOptions */
 
-/** @typedef {queueOptions} QueueOptions */
+/**
+ * @typedef {Object} QueueOptions
+ * @property {number} [retryDelay] - Delay in milliseconds, when there's a connection error
+ */
 
+/** @type {QueueOptions} */
 const queueOptions = {
-  /** @type {number} - Delay in milliseconds, when there's a connection error */
   retryDelay: 10000,
 };
 
 export default class xhrQ {
   /**
-   * @param {QueueOptions} options
+   * @param {QueueOptions} [options]
    */
   constructor(options) {
-    this.options = Object.assign({}, queueOptions, options);
+    this.options = Object.assign({}, queueOptions, (options || {}));
 
     /* Keep track of whether Ajax calls are still processing. */
     this.working = false;
@@ -119,7 +122,7 @@ export default class xhrQ {
 
     xhr.onload = () => {
       delete this.queue[id];
-      success(xhr.response);
+      success(xhr);
       this.working = false;
     };
 

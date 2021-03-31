@@ -7,12 +7,22 @@ module.exports = {
     'xhrQ.min': './src/xhrQ.js',
   },
   mode: 'production',
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: "babel-loader",
+      },
+    ],
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: {
       name: 'xhrQ',
       type: 'umd',
+      export: 'default',
     },
     clean: true,
   },

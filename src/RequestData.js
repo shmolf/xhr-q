@@ -1,7 +1,13 @@
 
 /**
- * @typedef {defaultOptions} Options
+ * @typedef {Object} Options
+ * @property {'GET'|'POST'|'PUT'|'DELETE'} [method]
+ * @property {((xhr: XMLHttpRequest) => void)} [success]
+ * @property {((xhr: XMLHttpRequest, statusText: string, status: number) => void)} [failure]
+ * @property {Number} [timeout=15000]
  */
+
+/** @type {Options} */
 const defaultOptions = {
   method: 'GET',
   success,
@@ -33,9 +39,7 @@ export default function qRequest(url, data, options) {
    * @returns {RequestConfig}
    */
   function getPacket() {
-    /**
-     * @typedef {packet} RequestConfig
-     */
+    /** @typedef {packet} RequestConfig */
     const packet = {
       id: self.privateProperties.id,
       method: self.privateProperties.method,
@@ -118,7 +122,6 @@ export default function qRequest(url, data, options) {
 }
 
 /**
- * @interface SuccessCall
  * @param {XMLHttpRequest} xhr
  */
 export function success(xhr) {}

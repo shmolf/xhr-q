@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script src="xhrQ.js"></script>
+	</head>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(){
+			const xhrQ = window.xhrQ;
+			const que = new xhrQ({
+			  retryDelay: 1000, // If there's a timeout issue, wait 1 second before retrying
+			});
+
+			const request = que.push('https://api.linkpreview.net', '', {
+			  method: 'GET',
+			  success: (xhr) => console.log(['success', JSON.parse(xhr.responseText)]),
+			  failure: (xhr) => console.log(['failure', xhr]),
+			});
+		});
+	</script>
+</html>
